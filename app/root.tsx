@@ -5,11 +5,11 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteLoaderData,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
-import Navbar from "./components/Navbar"
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -25,7 +25,24 @@ export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
+export async function loader() {
+  // let product = await getProductFromCSVFile(params.pid);
+  return {
+    identity: {
+      siteIcon: './assets/favicon.ico'
+    },
+    themeConfig: {
+      enableRadius: true,
+      fontSans: 'Inter',
+      primaryColor: '#0c7864',
+      secondaryColor: '#0461c9',
+    }
+  };
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useRouteLoaderData("root");
+
   return (
     <html lang="id">
       <head>
@@ -33,10 +50,34 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        { data?.identity?.siteIcon && <link rel="icon" type="image/x-icon" href={ data.identity.siteIcon }/>}
+        { data?.themeConfig && 
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              :root {
+                --font-sans: ${
+                  data.themeConfig?.fontSans || '#0c7864'
+                };
+                --primary-color: ${
+                  data.themeConfig?.primaryColor || '#0c7864'
+                };
+                --secondary-color: ${
+                  data.themeConfig?.secondaryColor || '#0c7864'
+                };
+                --radius: ${
+                  data.themeConfig?.enableRadius ? '0.5rem' : '0'
+                };
+              }
+            `,
+          }}
+        />}
       </head>
       <body className="font-sans bg-gray-50">
-        <Navbar/>
         {children}
+        <footer className="bg-black text-white text-center text-sm p-2">
+        <p>Copyright 2025. Develop by <a href="https://www.masbroweb.com/" className="underline" target="_blank">Jasa Pembuatan Website Medan</a></p>
+        </footer>
         <ScrollRestoration />
         <Scripts />
       </body>

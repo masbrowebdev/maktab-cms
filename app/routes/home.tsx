@@ -1,34 +1,75 @@
 import type { Route } from "./+types/home";
-import HeroSlider from "../components/HeroSlider"
-import VisionMission from "../components/VisionMission"
-import WelcomeText from "~/components/Welcometext";
-import Subjects from "~/components/Subjects";
-import Achievements from "~/components/Achievements";
-import Levels from "~/components/Level";
-import Teachers from "~/components/Teachers";
-import Facilities from "~/components/Facilities";
-import Galleries from "~/components/Galleries";
-import Contacts from "~/components/Contacts";
+import HeroSlider from "../components/sections/HeroSlider"
+import VisionMission from "../components/sections/VisionMission"
+import WelcomeText from "~/components/sections/WelcomeText";
+import Subjects from "~/components/sections/Subjects";
+import Achievements from "~/components/sections/Achievements";
+import Levels from "~/components/sections/Level";
+import Teachers from "~/components/sections/Teachers";
+import Facilities from "~/components/sections/Facilities";
+import Galleries from "~/components/sections/Galleries";
+import Contacts from "~/components/sections/Contacts";
 
-export function meta({}: Route.MetaArgs) {
+export async function loader() {
+  // let product = await getProductFromCSVFile(params.pid);
+  return {
+    enableSection: {
+      heroSlider: true,
+      welcomeText: false,
+      visionMission: true,
+      subjects: true,
+      achievements: true,
+      levels: true,
+      teachers: true,
+      facilities: false,
+      galleries: true,
+      contacts: true,
+    },
+    identity: {
+      schoolName: 'Pondok Pesantren \'Ainul Hayah'
+    },
+    content: {
+      visionMission: {
+        visionText: [
+          'Menjadi Pondok Pendidikan Islam Yang Unggul dan Membentuk Generasi yang Berilmu, Beramal, dan Berakhlak Mulia Sesuai Pahaman Ahlus Sunnah wal Jama\'ah'
+        ],
+        missionText: [
+          'Memberikan Metode Bacaan Alquran dengan baik dan Benar',
+          'Memberikan Target Hafalan Alquran yang Mutqin',
+          'Membiasakan Bahasa Arab di lingkungan Pondok',
+          'Menanamkan nilai-nilai keislaman dalam pelajaran Aqidah, Fiqih, Hadits dan Akhlak',
+          'Menjalin Kerjasama dengan Lembaga Umum maupun Agama',
+        ]
+      }
+    }
+  };
+}
+
+export function meta({
+  data
+}: Route.MetaArgs) {
+  const { identity } = data;
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: identity.schoolName },
+    // { name: "description", content: "Welcome to React Router!" },
   ];
 }
 
-export default function Home() {
-  return <>
-    <HeroSlider />
-    <VisionMission />
-    <WelcomeText />
-    <VisionMission />
-    <Subjects />
-    <Achievements />
-    <Levels />
-    <Teachers />
-    <Facilities />
-    <Galleries />
-    <Contacts />
-  </>;
+export default function Home({
+  loaderData,
+}: Route.ComponentProps) {
+  const { identity, enableSection, content } = loaderData;
+
+  return <div className="odd-even-sections">
+    { enableSection.heroSlider && <HeroSlider /> }
+    { enableSection.welcomeText && <WelcomeText /> }
+    { enableSection.visionMission && <VisionMission content={ content.visionMission }/> }
+    { enableSection.subjects && <Subjects /> }
+    { enableSection.achievements && <Achievements /> }
+    { enableSection.levels && <Levels /> }
+    { enableSection.teachers && <Teachers /> }
+    { enableSection.facilities && <Facilities /> }
+    { enableSection.galleries && <Galleries /> }
+    { enableSection.contacts && <Contacts /> }
+  </div>;
 }
