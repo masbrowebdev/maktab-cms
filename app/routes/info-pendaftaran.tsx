@@ -1,6 +1,14 @@
 import Contacts from "~/components/sections/Contacts";
 import { RiListCheck2, RiCalendarScheduleFill } from "@remixicon/react";
 
+
+export function meta() {
+  return [
+    { title: 'Info Pendaftaran' },
+    // { name: "description", content: "Welcome to React Router!" },
+  ];
+}
+
 export default function InfoPendaftaran() {
     return <><section className="bg-white pt-[100px]">
     <h2 className="text-3xl font-semibold text-center mb-6">Info Pendaftaran</h2>
