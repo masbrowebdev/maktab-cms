@@ -5,6 +5,15 @@ import { RiListCheck2, RiCalendarScheduleFill } from "@remixicon/react";
 export function meta() {
   return [
     { title: 'Info Pendaftaran' },
+    { description: "Daftarkan segera anak anda, kami membuka pendaftaran untuk tingkat Madrasah Tsanawiyah dan Madrasah Aliyah" },
+    {
+      property: "og:image",
+      content: "https://ponpesainulhayah.com/assets/galeri/gallery-6.jpg",
+    },
+    {
+      property: "og:description",
+      content: "Daftarkan segera anak anda, kami membuka pendaftaran untuk tingkat Madrasah Tsanawiyah dan Madrasah Aliyah"
+    },
     // { name: "description", content: "Welcome to React Router!" },
   ];
 }

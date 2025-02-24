@@ -51,6 +51,15 @@ export function meta({
   const { identity } = data;
   return [
     { title: identity.schoolName },
+    { description: "Visi kami Menjadi Pondok Pendidikan Islam Yang Unggul dan Membentuk Generasi yang Berilmu, Beramal, dan Berakhlak Mulia Sesuai Pahaman Ahlus Sunnah wal Jama'ah" },
+    {
+      property: "og:image",
+      content: "https://ponpesainulhayah.com/assets/siswa-sedang-belajar.jpg",
+    },
+    {
+      property: "og:description",
+      content: "Visi kami menjadi Pondok Pendidikan Islam Yang Unggul dan Membentuk Generasi yang Berilmu, Beramal, dan Berakhlak Mulia"
+    },
     // { name: "description", content: "Welcome to React Router!" },
   ];
 }
