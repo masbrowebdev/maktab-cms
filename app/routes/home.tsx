@@ -26,6 +26,7 @@ export async function loader() {
       contacts: true,
     },
     identity: {
+      googleSiteVerificationId: 'gXcOiKXqS6dYh94ne9By1BLxr_J94W0lt7zjuarWIA8',
       schoolName: 'Pondok Pesantren \'Ainul Hayah'
     },
     content: {

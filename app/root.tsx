@@ -29,7 +29,8 @@ export async function loader() {
   // let product = await getProductFromCSVFile(params.pid);
   return {
     identity: {
-      siteIcon: './assets/favicon.ico'
+      siteIcon: './assets/favicon.ico',
+      googleSiteVerificationId: 'gXcOiKXqS6dYh94ne9By1BLxr_J94W0lt7zjuarWIA8',
     },
     themeConfig: {
       enableRadius: true,
@@ -50,6 +51,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        { data?.identity?.googleSiteVerificationId && <meta name="google-site-verification" content={ data.identity.googleSiteVerificationId } />}
         { data?.identity?.siteIcon && <link rel="icon" type="image/x-icon" href={ data.identity.siteIcon }/>}
         { data?.themeConfig && 
         <style
