@@ -37,7 +37,10 @@ export async function loader() {
       fontSans: 'Inter',
       primaryColor: '#0c7864',
       secondaryColor: '#0461c9',
-    }
+    },
+    ENV: {
+      GA_ID: process.env.GA_ID,
+    },
   };
 }
 
@@ -81,6 +84,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <p>Copyright 2025. Develop by <a href="https://www.masbroweb.com/" className="underline" target="_blank">Jasa Pembuatan Website Medan</a></p>
         </footer>
         <ScrollRestoration />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(
+              data.ENV
+            )}`,
+          }}
+        />
         <Scripts />
       </body>
     </html>

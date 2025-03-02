@@ -9,6 +9,8 @@ import Teachers from "~/components/sections/Teachers";
 import Facilities from "~/components/sections/Facilities";
 import Galleries from "~/components/sections/Galleries";
 import Contacts from "~/components/sections/Contacts";
+import { useEffect } from "react";
+import { onPageView } from "~/.client/services/google-analytics";
 
 export async function loader() {
   // let product = await getProductFromCSVFile(params.pid);
@@ -69,6 +71,15 @@ export default function Home({
   loaderData,
 }: Route.ComponentProps) {
   const { identity, enableSection, content } = loaderData;
+
+  useEffect(() => {
+    onPageView({
+      page: '/',
+      title: 'Homepage'
+    })
+    return () => {
+    }
+  }, []);
 
   return <div className="odd-even-sections">
     { enableSection.heroSlider && <HeroSlider /> }

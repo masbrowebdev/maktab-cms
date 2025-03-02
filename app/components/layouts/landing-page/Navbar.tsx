@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 type navbarProps = {
   navbar?: {
@@ -54,7 +55,7 @@ export default function Navbar({
     <nav id="main-nav" className={`bg-white ${navbar?.navbarTextColor && 'text-primary'} p-4 fixed w-full top-0 z-50 shadow-lg`}>
       <div className="container mx-auto flex justify-between items-center">
           <div className="text-2xl font-semibold">
-            <a href="/" className="text-primary">
+            <Link to="/" className="text-primary">
               {
                 navbar?.logoWithText ? (<>
                   <img className="max-h-10 inline" src={ identity.schoolLogo } alt={ identity.schoolName } /> <span className="hidden lg:inline">{ identity.schoolName }</span>
@@ -62,7 +63,7 @@ export default function Navbar({
                 <img className="max-h-10 inline" src={ identity.schoolLogo } alt={ identity.schoolName } />
               }
               
-            </a>
+            </Link>
           </div>
           <div className="lg:hidden">
             <button id="navbar-toggle" onClick={ () => setIsOpen(!isOpen) } className="text-primary focus:outline-none">
@@ -73,7 +74,7 @@ export default function Navbar({
           </div>
 
           <div className="hidden lg:flex space-x-4">
-            { menu.map((item, index) => <a key={index} href={ item.link } className="hover:text-gray-300">{ item.label }</a>) }
+            { menu.map((item, index) => !item.link.startsWith('#') ? <Link key={index} to={ item.link } className="hover:text-gray-300">{ item.label }</Link> : <a key={index} href={ item.link } className="hover:text-gray-300">{ item.label }</a>) }
             {/* <a href="#home" className="hover:text-gray-300">Beranda</a> */}
             {/* <a href="#visi-misi" className="hover:text-gray-300">Visi & Misi</a> */}
             {/* <a href="#mata-pelajaran" className="hover:text-gray-300">Mata Pelajaran</a> */}
